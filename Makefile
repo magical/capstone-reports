@@ -1,8 +1,9 @@
-LATEX	= latex -shell-escape
-BIBTEX	= bibtex
-DVIPS	= dvips
-DVIPDF  = dvipdft
-XDVI	= xdvi -gamma 4
+prefix= /usr/local/apps/tex_live/current/bin/x86_64-linux
+LATEX	= $(prefix)/latex -shell-escape
+BIBTEX	= $(prefix)/bibtex
+DVIPS	= $(prefix)/dvips
+DVIPDF  = $(prefix)/dvipdft
+XDVI	= $(prefix)/xdvi -gamma 4
 GH		= gv
 
 EXAMPLES = $(wildcard *.c)
@@ -21,9 +22,9 @@ $(TRG): %.dvi: %.tex $(EXAMPLES)
 	#requires that you \include{pygments.tex} in your preamble
 
 	$(LATEX) $<
-	$(BIBTEX) $(<:%.tex=%)
-	$(LATEX) $<
-	$(LATEX) $<
+	#$(BIBTEX) $(<:%.tex=%)
+	#$(LATEX) $<
+	#$(LATEX) $<
 	#remove the pygmentized output to avoid cluttering up the directory
 	#rm __${SRC}.tex
 
