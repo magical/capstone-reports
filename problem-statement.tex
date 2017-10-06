@@ -25,7 +25,7 @@
 \par\vspace{-12pt} \textit{\tiny\noindent
 \makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
 % 3. If the document is not to be signed, uncomment the RENEWcommand below
-%\renewcommand{\NameSigPair}[1]{#1}
+\renewcommand{\NameSigPair}[1]{#1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -51,7 +51,8 @@
             {\large Prepared by }\par
             Group\CapstoneTeamNumber\par
             % 5. comment out the line below this one if you do not wish to name your team
-            \CapstoneTeamName\par
+            % team name TBD
+            %\CapstoneTeamName\par
             \vspace{5pt}
             {\Large
                 \NameSigPair{\GroupMemberOne}\par
@@ -62,6 +63,8 @@
         }
         \begin{abstract}
         % 6. Fill in your abstract
+            % TODO: fill this out later
+    %Project abstract summarizing the entire document in 100-150 words. We will be discussing how to write an abstract during our next class
         	This document is written using one sentence per line.
         	This allows you to have sensible diffs when you use \LaTeX with version control, as well as giving a quick visual test to see if sentences are too short/long.
         	If you have questions, ``The Not So Short Guide to LaTeX'' is a great resource (\url{https://tobi.oetiker.ch/lshort/lshort.pdf})
@@ -75,58 +78,96 @@
 %\listoffigures
 %\listoftables
 \clearpage
-
-% 8. now you write!
-
-\section{Goals}
-
-    Primary goal is to demonstrate a practical implementation of searchable encryption
-
-        Command-line interface is fine; we don't need a flashy ui, although that's a good stretch goal
-
-            Also nice to have: mobile app
-
-        Primary purpose is as a research project (proof of concept) rather than a polished product
-
-        Attila and Thang have done published a research paper and done a preliminary implementation of a particular searchable encryption algorithm
-
-        Need to figure out optimal datastructure for actually using it? Says there are 10s of options publshed – need to get familiar with those
-
-        Connect it to a cloud service like Amazon
-
-        Will lean heavily on research by David Cash
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-    Onec that's working, want to hook it up to a database of emails
+    % Definition and description of the problem you are trying to solve; be sure to write this problem definition for a general but educated audience
+    % Proposed solution
+    %Performance metrics: Tell how you will know when you have completed the project. Metrics help you and your client agree on what successful completion (e.g., faster, cheaper, easier to use, "a working prototype," a complete white paper with research results) of the project looks like.
 
-        Attila doesn't think this will be very difficult to set up once the first \^ project is done. I'm skeptical. Need to find out more details about what he has in mind.
-
-
-
-    A third, noncritical, project is to implement a password manager using ORAM (oblivious RAM) algorithms
-
-        This is very much a stretch goal which we would only work on after completing the first two projects. It's fine if we don't get to it at all.
 
 \section{Motivation}
 
-        Want to build tools that help protect privacy and fight mass surveillance
+    % Want to build tools that help protect privacy and fight mass surveillance
+Privacy issues and mass surveillance are a growing concern for the public.
+More and more companies are building products with strong encryption built in.
+Web browsers makers like Chrome and Mozilla are pushing for a secure-by-default world where every website has an SSL certificate and those without are marked as untrusted.
+Apple is positioning themselves as a privacy-conscious company by building strong encryption features into recent iPhone models.
+Open Whisper Systems built Signal -- a next-generation asynchronous messaging app whose underlying protocol has since been adopted by WhatsApp, Google Allo, and Facebook Messenger, to name a few.
 
-        No open-source implementation of searchable encryption
+Despite these advances, there are many areas where security is lacking.
+Encrypted email, for example, is still a mostly unsolved problem.
+You can use something like GPG to encrypt messages, but if you do that you lose
+the ability to easily search your messages.
+A similar problem exists for cloud storage systems:
+Google Drive offers some flavor of "encryption", but Google necessarily hangs onto a copy of the encryption keys, which means that Google has the ability to decrypt your files any time they want.
 
-        There's one that Cash did(?) but it's tied up in IP rights at IBM(?) and isn't available
+    % No open-source implementation of searchable encryption
+
+There has been some research into searchable encryption, but there are no open-source implementations of the algorithms that have been developed.
+
+
+    % There's one that Cash did(?) but it's tied up in IP rights at IBM(?) and isn't available
+
+
+\section{Goals}
+
+% Primary goal is to demonstrate a practical implementation of searchable encryption
+
+Our primary goal is to demonstrate a practical, open-source implementation of searchable encryption.
+
+
+
+    %Primary purpose is as a research project (proof of concept) rather than a polished product
+    %Command-line interface is fine; we don't need a flashy ui, although that's a good stretch goal.
+    %Also nice to have: mobile app
+
+    %Attila and Thang have done published a research paper and done a preliminary implementation of a particular searchable encryption algorithm
+
+Attila and Thang have developed an implementation of an algorithm for searchable encryption \cite{yavuz17}, but it only runs locally - not over the network. To convincingly demonstrate that we have achieved practical searchable encryption, we need to develop a implement a client-server protocol which
+
+    %Need to figure out optimal data structure for actually using it? Says there are 10s of options publshed – need to get familiar with those
+
+One of the problems with the current solution is that it uses space $\mathcal{O}(kf)$, where $k$ is the number of keywords, and $f$ is the number of documents.
+
+    %Connect it to a cloud service like Amazon
+
+    %Will lean heavily on research by David Cash
+
+Something something David Cash \cite{cryptoeprint:2014:853}
+
+
+
+Onec that's working, want to hook it up to a database of emails
+
+    Attila doesn't think this will be very difficult to set up once the first \^ project is done. I'm skeptical. Need to find out more details about what he has in mind.
+
+
+
+A third, noncritical, project is to implement a password manager using ORAM (oblivious RAM) algorithms
+
+    This is very much a stretch goal which we would only work on after completing the first two projects. It's fine if we don't get to it at all.
+
 
 \section{Metrics}
 
-        Correctness
+    Correctness
 
-        Reasonable performance
+    Reasonable performance
 
-            Searchable encryption: on order of milliseconds
+        Searchable encryption: on order of milliseconds
+        Performance should be on the order of a few hundred milliseconds.
+        % TODO: to do a search? retrieve a file?
 
-            Searchable email: TBD
+        Searchable email: TBD
+        % discussed with attila; he doesn't have specific requirements in mind,
+        % but expects to get a better idea after we've implemented some stuff
+        % and know what is possible
 
-            Password manager: ~100ms
+        Password manager: ~100ms
 
+\bibliographystyle{IEEEtran}
+\bibliography{problem-statement.bib}{}
 
 \end{document}

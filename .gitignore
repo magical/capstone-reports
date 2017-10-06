@@ -1,4 +1,11 @@
+# latex crud
 *.log
 *.aux
+*.toc
 *.dvi
+*.ps
+# bibtex crud
+*.blg
+*.bbl
+# temp file for examples code
 __.tex
